@@ -3,5 +3,11 @@ import { io } from 'socket.io-client';
 const STOCKS_URL = 'http://localhost:3000/stocks';
 const CONTROLLER_URL = 'http://localhost:3000/controller';
 
-const stocksSocket = io(STOCKS_URL);
-const controllerSocket = io(CONTROLLER_URL);
+export const stocksSocket = io(STOCKS_URL);
+export const controllerSocket = io(CONTROLLER_URL);
+
+console.log('Connecting to stocks...');
+
+controllerSocket.on('clockStocks', (date: Date) => {
+  console.log(date);
+});

@@ -24,6 +24,11 @@ export const slice = createSlice({
     addChart: (state: ChartsState, action: PayloadAction<ChartState>) => {
       state.value[action.payload.id] = action.payload;
     },
+    addCharts: (state: ChartsState, action: PayloadAction<ChartState[]>) => {
+      action.payload.forEach(chart => {
+        state.value[chart.id] = chart;
+      });
+    },
     removeChart: (state: ChartsState, action: PayloadAction<number>) => {
       delete state.value[action.payload];
     },
@@ -33,7 +38,7 @@ export const slice = createSlice({
   },
 });
 
-export const { addChart, removeChart, updateChart } = slice.actions;
+export const { addChart, addCharts, removeChart, updateChart } = slice.actions;
 
 export const selectCharts = (state: RootState) => state.charts.value;
 export const selectChartIds = (state: RootState) => Object.keys(state.charts.value).map(id => parseInt(id));

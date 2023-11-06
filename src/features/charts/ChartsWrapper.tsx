@@ -2,8 +2,22 @@ import React from 'react';
 
 import { useAppDispatch } from 'app/hooks';
 import { getStocks } from 'app/httpClient';
-import { addChart } from './chartSlice';
+import { addCharts } from './chartSlice';
 import { Charts } from './Charts';
+import { stocksSocket } from '../../app/gateway';
+import { setDate } from './dateSlice';
+
+interface StockImprint {
+  id: number,
+  name: string,
+  price: number,
+  quantity: number,
+}
+
+interface UpdateStockResponse {
+  date: string;
+  stockImprint: StockImprint | null;
+}
 
 export function ChartsWrapper() {
   const dispatch = useAppDispatch();
@@ -11,9 +25,7 @@ export function ChartsWrapper() {
   const stockDetails = getStocks();
   stockDetails.subscribe({
     next(response) {
-      for (const stock of response) {
-        dispatch(addChart(stock));
-      }
+      dispatch(addCharts(response));
     },
     error(error) {
       console.warn(error);
@@ -21,6 +33,11 @@ export function ChartsWrapper() {
     complete() {
       console.log("completed");
     }
+  });
+
+  stocksSocket.on('updateStock', (data: UpdateStockResponse) => {
+    console.log(data);
+    dispatch(setDate({ date: data.date }));
   });
 
   return (
