@@ -36,6 +36,7 @@ export const slice = createSlice({
 export const { addChart, removeChart, updateChart } = slice.actions;
 
 export const selectCharts = (state: RootState) => state.charts.value;
+export const selectChartIds = (state: RootState) => Object.keys(state.charts.value).map(id => parseInt(id));
 export const selectChart = (state: RootState, id: number) => state.charts.value[id] ?? null;
 
 export default slice.reducer;

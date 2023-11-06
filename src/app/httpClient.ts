@@ -12,6 +12,8 @@ interface GetDetailsResponse {
   readonly quantity: number;
 }
 
-export function getStocks(): Observable<GetDetailsResponse> {
-  return from(fetch(GET_STOCKS_DETAILS_URL).then(response => response.json()));
+export function getStocks(): Observable<GetDetailsResponse[]> {
+  return from(fetch(GET_STOCKS_DETAILS_URL)
+    .then(response => response.json())
+    .then(data => data as GetDetailsResponse[]));
 }

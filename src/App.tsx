@@ -1,13 +1,11 @@
 import React from 'react';
 import './App.css';
-import { Counter } from './features/counter/Counter';
-import { Charts } from './features/charts/Charts';
+import { ChartsWrapper } from './features/charts/ChartsWrapper';
 
 function App() {
   return (
     <div className="App">
-      <Counter />
-      <Charts />
+      <ChartsWrapper />
     </div>
   );
 }

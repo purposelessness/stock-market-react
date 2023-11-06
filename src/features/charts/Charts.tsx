@@ -1,28 +1,17 @@
 import React from 'react';
 
-import { getStocks } from 'app/httpClient';
-import { useAppDispatch } from 'app/hooks';
-import { addChart } from './chartSlice';
+import { useAppSelector } from 'app/hooks';
+import { selectChartIds } from './chartSlice';
 import { Chart } from './Chart';
 
 export function Charts() {
-  const dispatch = useAppDispatch();
-
-  const stockDetails = getStocks();
-  stockDetails.subscribe({
-    next(response) {
-      console.log(response);
-      dispatch(addChart(response));
-    },
-    error(error) {
-      console.warn(error);
-    },
-    complete() {
-      console.log("completed");
-    }
-  });
+  const chartIds = selectChartIds(useAppSelector((state) => state));
 
   return (
-    <Chart id={0} />
+    <div>
+      {chartIds.map((id) => (
+        <Chart key={id} id={id} />
+      ))}
+    </div>
   );
 }
