@@ -10,6 +10,7 @@ const CONTROLLER_URL = `${BASE_URL}/controller`;
 const START_CLOCK_URL = `${CONTROLLER_URL}/start-clock`;
 const STOP_CLOCK_URL = `${CONTROLLER_URL}/stop-clock`;
 const GET_DATE_URL = `${CONTROLLER_URL}/date`;
+const SET_DELAY_URL = `${CONTROLLER_URL}/set-clock-delay`;
 
 interface GetDetailsResponse {
   readonly id: number;
@@ -48,4 +49,12 @@ export function getDate(): Observable<string> {
   return from(fetch(GET_DATE_URL)
     .then(response => response.json())
     .then(data => new Date(data).toISOString().split('T')[0] as string));
+}
+
+export async function setDelay(delay: number): Promise<void> {
+  await fetch(SET_DELAY_URL, {
+    method: 'POST',
+    body: JSON.stringify({ 'delay': delay }),
+    headers: { 'Content-Type': 'application/json' },
+  });
 }
