@@ -16,6 +16,7 @@ interface GetDetailsResponse {
   readonly name: string;
   readonly prices: { date: string; price: number }[];
   readonly quantity: number;
+  readonly enabled: boolean;
 }
 
 interface GetImprintsResponse {

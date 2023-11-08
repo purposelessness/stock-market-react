@@ -44,6 +44,14 @@ export function Chart(params: { id: number }) {
     );
   }
 
+  if (!chart.enabled) {
+    return (
+      <div>
+        <p>Chart disabled</p>
+      </div>
+    );
+  }
+
   const options = {
     responsive: true,
     plugins: {

@@ -3,4 +3,5 @@ export interface StockImprint {
   name: string;
   price: number;
   quantity: number;
+  enabled: boolean;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppDispatch } from 'app/hooks';
 import { getDate, getStockImprints, getStocks } from 'app/httpClient';
-import { addCharts } from './chartSlice';
+import { addCharts, toggleChartEnabled } from './chartSlice';
 import { Charts } from './Charts';
 import { stocksSocket } from '../../app/gateway';
 import { setDate } from './dateSlice';
@@ -13,6 +13,7 @@ interface StockImprint {
   name: string,
   price: number,
   quantity: number,
+  enabled: boolean,
 }
 
 interface UpdateStockResponse {
@@ -38,6 +39,7 @@ export function ChartsWrapper() {
 
   stockDetails.subscribe({
     next(response) {
+      console.log(response);
       dispatch(addCharts(response));
     },
     error(error) {
@@ -60,8 +62,9 @@ export function ChartsWrapper() {
 
   stocksSocket.on('updateStock', (data: UpdateStockResponse) => {
     dispatch(setDate({ date: data.date }));
-    if (data.stockImprint !== null) {
+    if (data.stockImprint != null) {
       dispatch(addChartImprint(data.stockImprint));
+      dispatch(toggleChartEnabled({ id: data.stockImprint.id, enabled: data.stockImprint.enabled }));
     }
   });
 

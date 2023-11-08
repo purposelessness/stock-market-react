@@ -7,6 +7,7 @@ interface ChartImprintState {
   name: string;
   price: number;
   quantity: number;
+  enabled: boolean;
 }
 
 interface ChartImprintsState {

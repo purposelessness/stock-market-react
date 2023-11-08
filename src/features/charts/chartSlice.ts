@@ -7,6 +7,7 @@ interface ChartState {
   name: string;
   prices: { date: string; price: number }[];
   quantity: number;
+  enabled: boolean;
 }
 
 interface ChartsState {
@@ -35,10 +36,13 @@ export const slice = createSlice({
     updateChart: (state: ChartsState, action: PayloadAction<ChartState>) => {
       state.value[action.payload.id] = action.payload;
     },
+    toggleChartEnabled: (state: ChartsState, action: PayloadAction<{ id: number, enabled: boolean }>) => {
+      state.value[action.payload.id].enabled = action.payload.enabled;
+    }
   },
 });
 
-export const { addChart, addCharts, removeChart, updateChart } = slice.actions;
+export const { addChart, addCharts, removeChart, updateChart, toggleChartEnabled } = slice.actions;
 
 export const selectCharts = (state: RootState) => state.charts.value;
 export const selectChartIds = (state: RootState) => Object.keys(state.charts.value).map(id => parseInt(id));
