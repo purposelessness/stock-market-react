@@ -6,6 +6,7 @@ import './App.css';
 import { ChartsWrapper } from './features/charts/ChartsWrapper';
 import 'app/gateway';
 import { TablesWrapper } from './features/tables/TablesWrapper';
+import { Settings } from './features/settings/Settings';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     path: '/tables',
     element: <TablesWrapper />,
   },
+  {
+    path: '/settings',
+    element: <Settings />,
+  }
 ]);
 
 function App() {

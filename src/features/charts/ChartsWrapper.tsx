@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useAppDispatch } from 'app/hooks';
-import { getStockImprints, getStocks } from 'app/httpClient';
+import { getDate, getStockImprints, getStocks } from 'app/httpClient';
 import { addCharts } from './chartSlice';
 import { Charts } from './Charts';
 import { stocksSocket } from '../../app/gateway';
@@ -25,6 +25,16 @@ export function ChartsWrapper() {
 
   const stockDetails = getStocks();
   const stockImprints = getStockImprints();
+  const date = getDate();
+
+  date.subscribe({
+    next(response) {
+      dispatch(setDate({ date: response }));
+    },
+    error(error) {
+      console.warn(error);
+    },
+  });
 
   stockDetails.subscribe({
     next(response) {

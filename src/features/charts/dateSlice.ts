@@ -7,7 +7,7 @@ interface DateState {
 }
 
 const initialState: DateState = {
-  date: '2021-12-05',
+  date: '2018-11-05',
 };
 
 export const slice = createSlice({
