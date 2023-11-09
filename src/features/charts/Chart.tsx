@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 import { useAppSelector } from 'app/hooks';
 import { selectChart } from './chartSlice';
@@ -20,7 +20,7 @@ import { selectDate } from './dateSlice';
 let globalDate: string;
 
 export function Chart(params: { id: number }) {
-  const {id} = params;
+  const { id } = params;
 
   ChartJs.register(
     LinearScale,
@@ -30,7 +30,7 @@ export function Chart(params: { id: number }) {
     Legend,
     Tooltip,
     Title,
-    TimeScale
+    TimeScale,
   );
 
   const chart = selectChart(useAppSelector((state) => state), id);
@@ -53,6 +53,9 @@ export function Chart(params: { id: number }) {
   }
 
   const options = {
+    animation: {
+      duration: 0,
+    },
     responsive: true,
     plugins: {
       legend: {
@@ -72,13 +75,13 @@ export function Chart(params: { id: number }) {
         time: {
           unit: 'day' as const,
         },
-      }
+      },
     },
   };
 
   const dates: string[] = [];
   const values: number[] = [];
-  chart.prices.forEach(({date, price}, key) => {
+  chart.prices.forEach(({ date, price }, key) => {
     dates.push(date);
     values.push(price);
   });
@@ -145,12 +148,12 @@ export function Chart(params: { id: number }) {
         ctx.stroke();
         ctx.restore();
       },
-    }
+    },
   ];
 
   return (
     <div data-date={globalDate}>
-      <Line data={data} options={options} plugins={plugins} />
+      <Line data={data} options={options} plugins={plugins}/>
     </div>
   );
 }
