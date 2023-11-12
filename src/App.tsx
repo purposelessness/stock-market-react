@@ -7,6 +7,7 @@ import { ChartsWrapper } from './features/charts/ChartsWrapper';
 import 'app/gateway';
 import { TablesWrapper } from './features/tables/TablesWrapper';
 import { Settings } from './features/settings/Settings';
+import { Brokers } from './features/brokers/Brokers';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
   {
     path: '/settings',
     element: <Settings />,
-  }
+  },
+  {
+    path: '/brokers',
+    element: <Brokers />,
+  },
 ]);
 
 function App() {

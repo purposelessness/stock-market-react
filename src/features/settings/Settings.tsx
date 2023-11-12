@@ -39,7 +39,7 @@ export function Settings() {
       <label>
         Date:
       </label>
-      <input type="text" id="date" defaultValue="2020-10-10" />
+      <input type="text" id="date" defaultValue="2020-10-13" />
       <button onClick={() => setDate(document.getElementById("date"))}>Set</button>
       <br/>
       <button onClick={() => onStartClock()}>Start Clock</button>
