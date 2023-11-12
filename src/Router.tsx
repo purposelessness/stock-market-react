@@ -2,7 +2,7 @@ import React from 'react';
 
 export function Router() {
   return (
-    <div>
+    <nav>
       <a href="/charts">Charts</a>
       <br/>
       <a href="/tables">Tables</a>
@@ -10,6 +10,6 @@ export function Router() {
       <a href="/brokers">Brokers</a>
       <br/>
       <a href="/settings">Settings</a>
-    </div>
+    </nav>
   );
 }

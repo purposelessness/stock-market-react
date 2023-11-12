@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { selectChartIds } from '../charts/chartSlice';
-import { useAppSelector } from '../../app/hooks';
+import { selectChartId, selectChartIds, selectSelectedChartId } from '../charts/chartSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Table } from './Table';
 
 export function Tables() {
+  const dispatch = useAppDispatch();
   const chartIds = selectChartIds(useAppSelector((state) => state));
+  const chartId = selectSelectedChartId(useAppSelector((state) => state)) ?? 0;
 
   if (chartIds.length === 0) {
     return (
@@ -17,11 +19,20 @@ export function Tables() {
 
   return (
     <div>
-      {chartIds.map((id) => (
-        <div>
-          <Table id={id} />
-        </div>
-      ))}
+      <select onChange={(e) => {
+        console.log(e.target.value);
+        dispatch(selectChartId(Number(e.target.value)));
+      }}>
+        {chartIds.map((id) => (
+          <option key={'option-' + id} value={id}>
+            {id}
+          </option>
+        ))}
+      </select>
+
+      <div className={'stock-table'}>
+        <Table key={'table-' + chartId} id={chartId} />
+      </div>
     </div>
   )
 }
